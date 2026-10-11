@@ -14,17 +14,30 @@
                     <a href="{% url 'post_new' %}" class="top-menu">
                         {% include './icons/file-earmark-plus.svg' %}
                     </a>
+                    <a href="{% url 'post_draft_list' %}" class="top-menu">{% include './icons/pencil-square.svg'%}</a>
+                    <div id="logout" class="top-menu" style="display: inline-block;">
+                        <span>Hello {{ user.username }}</span>
+                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link" style="padding: 0; margin-left: 5px; vertical-align: baseline; font-size: 85%;">
+                                (Log out)
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="top-menu">{% include './icons/lock-fill.svg' %}</a>
                 {% endif %}
                 <h1><a href="/">Django MK Blog</a></h1>
             </div>
         </header>
-        <main class="container">
+        <main class="content container">
             <div class="row">
                 <div class="col">
-                {% block content %}
-                {% endblock %}
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
         </main>
     </body>
+
 </html>
